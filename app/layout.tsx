@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Public_Sans, Source_Serif_4 } from "next/font/google";
 import { LanguageProvider } from "../context/LanguageContext";
+import { AuthProvider } from "../context/AuthContext"; // Added AuthProvider import
 import "./globals.css";
 
 const publicSans = Public_Sans({ subsets: ["latin"], variable: "--font-public-sans" });
@@ -15,8 +16,12 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${publicSans.variable} ${sourceSerif.variable}`}>
-      <body className="min-h-screen antialiased">
-        <LanguageProvider>{children}</LanguageProvider>
+      <body className="min-h-screen antialiased suppressHydrationWarning">
+        <LanguageProvider>
+          <AuthProvider>
+            {children}
+          </AuthProvider>
+        </LanguageProvider>
       </body>
     </html>
   );

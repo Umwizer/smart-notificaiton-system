@@ -42,22 +42,25 @@ function seed(): DB {
     ],
     notices: [
       {
-        id: "n1", title: "Child vaccination day",
-        content: "All parents and guardians are invited to bring children under five to the health centre for vaccination. Please carry the child's health card.",
+        id: "n1", 
+        title: { en: "Child vaccination day", rw: "Umunsi wo gukingira abana" },
+        content: { en: "All parents and guardians are invited to bring children under five to the health centre for vaccination. Please carry the child's health card.", rw: "Ababyeyi n'abarezi bose baratumirwa kuzana abana bari munsi y'imyaka itanu ku kigo nderabuzima gukingira. Ujye utwara ikarita y'ubuzima y'umwana." },
         category: "health", priority: "urgent", status: "published",
         target: { district: DISTRICT, sector: "Nyamata" }, channels: ["sms", "push"],
         createdBy: "u-sector1", createdAt: "2026-11-10T08:00:00Z", expiresAt: "2026-12-31T00:00:00Z",
       },
       {
-        id: "n2", title: "Market day moved to Thursday",
-        content: "Because of road works, this week's market will be held on Thursday instead of Wednesday.",
+        id: "n2", 
+        title: { en: "Market day moved to Thursday", rw: "Umunsi w'isoko wajyanywe ku wa kane" },
+        content: { en: "Because of road works, this week's market will be held on Thursday instead of Wednesday.", rw: "Kubera imirimo yo kubaka imihanda, isoko y'iki cyumweru rizabera ku wa kane aho kuba ku wa gatatu." },
         category: "administrative", priority: "normal", status: "pending",
         target: { district: DISTRICT, sector: "Nyamata", cell: nyaCell }, channels: ["sms"],
         createdBy: "u-cell1", createdAt: "2026-11-15T09:30:00Z",
       },
       {
-        id: "n3", title: "Heavy rain warning",
-        content: "Heavy rain is expected in the coming days. Avoid low-lying areas and rivers, and move livestock to higher ground.",
+        id: "n3", 
+        title: { en: "Heavy rain warning", rw: "Iburira ry'imvura nyinshi" },
+        content: { en: "Heavy rain is expected in the coming days. Avoid low-lying areas and rivers, and move livestock to higher ground.", rw: "Imvura nyinshi iteganyijwe mu minsi iri imbere. Irinde ahantu hacetse imvura n'inzuzi, kandi ujye inyamanswa ahantu hirengeye." },
         category: "weather", priority: "emergency", status: "draft",
         target: { district: DISTRICT }, channels: ["sms", "push", "ussd"],
         createdBy: "u-district", createdAt: "2026-11-17T07:00:00Z",
@@ -73,7 +76,7 @@ function seed(): DB {
     announcements: [
       {
         id: "a1",
-        text: "Welcome to the Smart Community Notification System for Bugesera District. Notices for your area appear here.",
+        text: { en: "Welcome to the Smart Community Notification System for Bugesera District. Notices for your area appear here.", rw: "Murakaza neza muri Sisitemu y'Amatangazo y'Umuryango y'Akarere ka Bugesera. Amatangazo y'aho utuye azagaragara hano." },
         createdAt: "2026-11-18T06:00:00Z",
       },
     ],
