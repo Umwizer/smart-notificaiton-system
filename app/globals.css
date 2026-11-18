@@ -1,26 +1,63 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
+/*
+  Design tokens: blue government theme with Rwandan flag accents.
+  Each --color-* name becomes Tailwind classes, e.g.
+  --color-primary -> bg-primary, text-primary, border-primary
+*/
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Brand blue */
+  --color-primary: #0b4f8a;
+  --color-primary-dark: #08365f;
+  --color-primary-tint: #e8f0f8;
+
+  /* Flag accents */
+  --color-sun: #e5b72b;
+  --color-flag-green: #1f5c3a;
+
+  /* Neutrals */
+  --color-paper: #f7f8f4;
+  --color-ink: #14231b;
+  --color-muted: #52625a;
+  --color-line: #d5dcd3;
+
+  /* Status */
+  --color-alert: #b3261e;
+
+  /* Fonts (loaded in app/layout.tsx) */
+  --font-sans: var(--font-public-sans), system-ui, sans-serif;
+  --font-heading: var(--font-source-serif), Georgia, serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}
+
+::selection {
+  background: var(--color-primary);
+  color: #ffffff;
+}
+
+/* Visible keyboard focus on every interactive element */
+:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Respect people who turn animations off in their system settings */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
 }
