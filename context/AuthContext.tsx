@@ -10,8 +10,8 @@ import { attemptLogin, type LoginResult } from "@/lib/authService";
 const SESSION_KEY = "scn-session";
 
 // --- CHANGE TIMERS HERE ---
-const TIMEOUT_MS = 5 * 60 * 1000; // 5 minutes
-const WARNING_MS = TIMEOUT_MS - 60000; // Warn 1 minute before logout
+const TIMEOUT_MS = 2.5 * 60 * 1000; // 2 minutes and 30 seconds (150,000 ms)
+const WARNING_MS = TIMEOUT_MS - 30000; // Warn 30 seconds before logout
 
 export type SignInResult =
   | Extract<LoginResult, { ok: false }>
@@ -63,7 +63,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }, TIMEOUT_MS);
   }, [user, signOut]);
 
-  // Handle activity listeners
   useEffect(() => {
     const events = ["mousedown", "keydown", "scroll", "touchstart"];
     
@@ -101,12 +100,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             // will trigger the activity listener useEffect above which starts the timer.
           }
         }
-      } catch {}
-      setReady(true);
+      } catch (e) {
+        console.error("Failed to load session", e);
+      } finally {
+        setReady(true); // ALWAYS set ready, even if no user
+      }
     };
     initSession();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // <--- Empty dependency array means this only runs ONCE when the app loads
+
+  }, []); 
 
   const signIn = useCallback((identifier: string, password: string): SignInResult => {
       const res = attemptLogin(identifier, password);

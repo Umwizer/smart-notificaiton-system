@@ -48,6 +48,7 @@ function seed(): DB {
         category: "health", priority: "urgent", status: "published",
         target: { district: DISTRICT, sector: "Nyamata" }, channels: ["sms", "push"],
         createdBy: "u-sector1", createdAt: "2026-11-10T08:00:00Z", expiresAt: "2026-12-31T00:00:00Z",
+        attachment: { name: "vaccination_schedule.pdf", size: "1.2 MB" }
       },
       {
         id: "n2", 
@@ -61,14 +62,54 @@ function seed(): DB {
         id: "n3", 
         title: { en: "Heavy rain warning", rw: "Iburira ry'imvura nyinshi" },
         content: { en: "Heavy rain is expected in the coming days. Avoid low-lying areas and rivers, and move livestock to higher ground.", rw: "Imvura nyinshi iteganyijwe mu minsi iri imbere. Irinde ahantu hacetse imvura n'inzuzi, kandi ujye inyamanswa ahantu hirengeye." },
-        category: "weather", priority: "emergency", status: "draft",
+        category: "weather", priority: "emergency", status: "published",
         target: { district: DISTRICT }, channels: ["sms", "push", "ussd"],
         createdBy: "u-district", createdAt: "2026-11-17T07:00:00Z",
       },
+      {
+        id: "n4", 
+        title: { en: "Community Umuganda", rw: "Umuganda w'abaturage" },
+        content: { en: "Join us this Saturday for Umuganda to build the new cell office.", rw: "Twifatanye n'uyu wa gatandatu mu muganda wo kubaka ibiro bishya by'akagari." },
+        category: "events", priority: "normal", status: "published",
+        target: { district: DISTRICT, sector: "Nyamata", cell: nyaCell, village: "Kanazi" }, channels: ["push"],
+        createdBy: "u-cell1", createdAt: "2026-11-18T10:00:00Z",
+      },
+      {
+        id: "n5", 
+        title: { en: "Security patrol update", rw: "Amakuru ku irondo ry'umutekano" },
+        content: { en: "Night patrols have been increased in the sector. Report any suspicious activity to the local authorities.", rw: "Irondo ryo nijoro ryongerewe mu murenge. Menyesha abayobozi ahantu h'ibikorwa bishishikaje." },
+        category: "security", priority: "urgent", status: "published",
+        target: { district: DISTRICT, sector: "Nyamata" }, channels: ["sms"],
+        createdBy: "u-sector1", createdAt: "2026-11-19T18:00:00Z",
+      },
+      {
+        id: "n6", 
+        title: { en: "Water maintenance in Rilima", rw: "Gusana amazi i Rilima" },
+        content: { en: "Water supply will be interrupted in Rilima sector for 2 days to repair the main pipe.", rw: "Amazi azahagarikwa mu murenge wa Rilima iminsi 2 kugira ngo basane umuyoboro munini." },
+        category: "administrative", priority: "normal", status: "pending",
+        target: { district: DISTRICT, sector: "Rilima" }, channels: ["sms", "push"],
+        createdBy: "u-sector2", createdAt: "2026-11-20T08:00:00Z",
+      }
+    ],
+    feedback: [
+      {
+        id: "f1", noticeId: "n1", userId: "u-res1", type: "question",
+        comment: "Will the vaccination be free of charge?", status: "received", createdAt: "2026-11-11T09:00:00Z"
+      },
+      {
+        id: "f2", noticeId: "n3", userId: "u-res2", type: "concern",
+        comment: "The river near our village is already overflowing, we need help.", status: "responded", 
+        response: "Emergency response team has been dispatched to your area.", createdAt: "2026-11-17T10:00:00Z"
+      }
+    ],
+    deliveries: [
+      { id: "d1", noticeId: "n1", userId: "u-res1", channel: "sms", status: "delivered", updatedAt: "2026-11-10T08:05:00Z" },
+      { id: "d2", noticeId: "n1", userId: "u-res1", channel: "push", status: "delivered", updatedAt: "2026-11-10T08:05:00Z" },
+      { id: "d3", noticeId: "n1", userId: "u-res2", channel: "sms", status: "delivered", updatedAt: "2026-11-10T08:06:00Z" },
+      { id: "d4", noticeId: "n3", userId: "u-res1", channel: "sms", status: "delivered", updatedAt: "2026-11-17T07:02:00Z" },
+      { id: "d5", noticeId: "n3", userId: "u-res1", channel: "ussd", status: "failed", updatedAt: "2026-11-17T07:02:00Z" }
     ],
     approvals: [],
-    feedback: [],
-    deliveries: [],
     messages: [],
     groups: [],
     audit: [],

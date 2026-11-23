@@ -22,7 +22,7 @@ export interface User {
   name: string;
   email: string;
   phone: string;
-  password: string; // prototype only: never store passwords like this in the real system
+  password: string;
   role: Role;
   area: Target;
   status: "active" | "suspended";
@@ -35,14 +35,14 @@ export interface Notice {
   content: Bilingual;
   category: Category;
   priority: Priority;
-  status: NoticeStatus;
+  status: "draft" | "pending" | "approved" | "published" | "rejected";
   target: Target;
   channels: Channel[];
-  scheduledFor?: string; // ISO date, empty = send immediately
-  attachmentName?: string;
   createdBy: string;
   createdAt: string;
   expiresAt?: string;
+  readBy?: string[];
+  attachment?: { name: string; size: string };
 }
 
 export interface ApprovalRecord {
@@ -57,7 +57,7 @@ export interface ApprovalRecord {
 export interface Feedback {
   id: string;
   noticeId: string;
-  userId: string | null; // null when anonymous
+  userId: string | null;
   type: "acknowledgment" | "question" | "concern" | "suggestion";
   rating?: number;
   comment: string;
