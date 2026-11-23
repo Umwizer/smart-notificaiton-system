@@ -130,3 +130,20 @@ export function resetPassword(userId: string, newPassword: string): void {
   addAudit(db, user.id, "password_reset", "Password changed through reset");
   writeDB(db);
 }
+export function updateProfile(userId: string, data: Partial<User>): User | null {
+  const db = readDB();
+  const userIndex = db.users.findIndex(u => u.id === userId);
+  if (userIndex === -1) return null;
+  
+  db.users[userIndex] = { ...db.users[userIndex], ...data };
+  writeDB(db);
+  return db.users[userIndex];
+}
+
+export function getLoginActivity(userId: string) {
+  const db = readDB();
+  // Filter audit logs for this user's login events
+  return db.audit
+    .filter(a => a.userId === userId && (a.action === "login_success" || a.action === "login_failed"))
+    .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+}
