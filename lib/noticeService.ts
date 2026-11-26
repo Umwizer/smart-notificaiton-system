@@ -193,3 +193,38 @@ export function getDeliveryStatus(noticeId: string) {
   const db = readDB();
   return db.deliveries.filter(d => d.noticeId === noticeId);
 }
+// Send a direct message
+export function sendDirectMessage(fromId: string, toId: string, text: string) {
+  const db = readDB();
+  db.messages.push({
+    id: newId("m"),
+    fromId,
+    toId,
+    text,
+    createdAt: new Date().toISOString(),
+  });
+  writeDB(db);
+}
+
+// Get messages for a specific user (sent or received)
+export function getMessagesForUser(userId: string) {
+  const db = readDB();
+  return db.messages
+    .filter(m => m.fromId === userId || m.toId === userId)
+    .map(m => {
+      const otherUser = db.users.find(u => u.id === (m.fromId === userId ? m.toId : m.fromId));
+      return { ...m, otherUserName: otherUser?.name || "System" };
+    })
+    .sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+}
+
+// Send a global broadcast (Admin only)
+export function sendBroadcast(adminId: string, text: string) {
+  const db = readDB();
+  db.announcements.push({
+    id: newId("a"),
+    text: { en: text, rw: text },
+    createdAt: new Date().toISOString(),
+  });
+  writeDB(db);
+}

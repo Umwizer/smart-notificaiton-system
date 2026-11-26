@@ -39,6 +39,8 @@ function seed(): DB {
       user("u-res3", "Mukeshimana Esther", "mukeshimana.esther@scns.rw", "0788000013", "resident", "Nyamata", 1, 0),
       user("u-res4", "Habyarimana Jean", "habyarimana.jean@scns.rw", "0788000014", "resident", "Rilima", 0, 0),
       user("u-res5", "Ingabire Diane", "ingabire.diane@scns.rw", "0788000015", "resident", "Gashora", 0, 0),
+      // Add this inside the `users: [...]` array in mockStore.ts
+     user("u-village1", "Nkusi Emmanuel", "village.kanazi@scns.rw", "0788000007", "village", "Nyamata", 0, 0),
     ],
     notices: [
       {

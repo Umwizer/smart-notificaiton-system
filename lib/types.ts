@@ -2,8 +2,7 @@ export interface Bilingual {
   en: string;
   rw: string;
 }
-
-export type Role = "admin" | "district" | "sector" | "cell" | "resident";
+export type Role = "admin" | "district" | "sector" | "cell" | "village" | "resident";
 export type Category = "health" | "security" | "weather" | "events" | "administrative";
 export type Priority = "normal" | "urgent" | "emergency";
 export type Channel = "sms" | "push" | "email" | "ussd";
